@@ -18,9 +18,10 @@
     function Header(){
       console.log('\tHeader 호출됨');
       return (
+        // JSX -> babel -> JS
         <header>
           <h1>02 Counter - React로 구현(JSX)</h1>
-          <p>파일 경로: <span id="filepath"></span></p>
+          <p>파일 경로: <span id="filepath">{ `ch${document.URL.split('/ch')[1]}index.html` }</span></p>
         </header>
       );
     }
@@ -65,6 +66,7 @@
       return (
         <div id="app">
           <Header />
+          <Counter />
           <Counter />
         </div>
       );
