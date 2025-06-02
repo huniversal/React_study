@@ -47,7 +47,8 @@ const reaction = {
 
   // 상태값(데이터)을 관리하는 객체를 생성해서 반환
   useState: (initialValue) => {
-    // 최초 호출되었을 경우에만 초기값을 지정하고 이후에 다시 호출되는 경우에는 이전 값을 유지한다.
+    // 최초 호출되었을 경우에만 초기값을 지정하고 
+    // 이후에 다시 호출되는 경우에는 이전 값을 유지한다.
     _stateValue = _stateValue ?? initialValue;
     // ?? : null 병합 연산자 : 왼쪽 값이 null 또는 undefined인 경우 오른쪽 값을 반환한다.
 
@@ -67,6 +68,7 @@ const reaction = {
     }
     // const [count, setCount] = Reaction.useState(0);
     // 상태값과 상태값을 수정하는 함수를 배열로 반환한다.
+    // [현재값, 변경함수] 배열로 반환
     return [_stateValue, setValue];
   },
 };

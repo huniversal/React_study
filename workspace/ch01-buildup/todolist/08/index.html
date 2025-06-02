@@ -121,16 +121,45 @@
       }
 
         // 완료/미완료 처리
+        // function toggleDone(num) {
+        //   console.log(num, '완료/미완료');
+        //   const selectedItem = itemList.find((item) => 
+        //     item.num === num
+        //       ? {...item, done: !item.done}
+        //       : item);
+
+        //   console.log(selectedItem);
+
+        //   // // item의 done 값을 수정
+        //   // selectedItem.done = !selectedItem.done
+
+        //   setItemList([ ...itemList]);
+        // }
+        // function toggleDone(num) {
+        //   const selectedItem = itemList.find(item => item.num === num);
+        //   const beforeItem = itemList.find(item => item.num === num); // 수정 전 객체
+        //   selectedItem.done = !selectedItem.done; // 원본 직접 수정
+
+        //   const afterList = [...itemList]; // 새로운 배열 생성
+        //   const afterItem = afterList.find(item => item.num === num); // 복사된 배열 안의 객체
+
+        //   console.log('selectedItem === afterItem:', selectedItem === afterItem); // ✅ 이게 핵심
+
+        //   setItemList(afterList);
+        // }
+        //=======================================================================
         function toggleDone(num) {
-          console.log(num, '완료/미완료');
-          const selectedItem = itemList.find((item) => item.num === num);
+          const newItemList = itemList.map(item =>
+            item.num === num
+              ? { ...item, done: !item.done }
+              : item
+          );
 
-          console.log(selectedItem);
-
-          // item의 done 값을 수정
-          selectedItem.done = !selectedItem.done;
-
-          setItemList([ ...itemList]);
+            // ✅ 주소 비교용 로그
+          console.log('원본 itemList[0]:', itemList[0]);
+          console.log('새로운 newItemList[0]:', newItemList[0]);
+          console.log('주소 비교:', itemList[0] === newItemList[0]);
+          setItemList(newItemList);
         }
 
         // 할일 삭제
