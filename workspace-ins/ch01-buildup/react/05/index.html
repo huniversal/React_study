@@ -24,18 +24,10 @@
                         TodoItem
     */
 
-
-    // 샘플 목록
-    const initItemList = [
-      { num: 1, title: '자바스크립트 공부', done: true },
-      { num: 2, title: 'JS 프로젝트', done: true },
-      { num: 3, title: 'React 공부', done: false },
-    ];
-
     function Header(){
       return (
         <header>
-          <h1>04 Todo List - React 컴포넌트 분리</h1>
+          <h1>05 Todo List - React 기능 추가</h1>
           <p>파일 경로: <span id="filepath">{ `ch${document.URL.split('/ch')[1]}index.html` }</span></p>
         </header>
       );
@@ -50,14 +42,59 @@
     }
 
     function Todo(){
+      // 샘플 목록
+      const initItemList = [
+        { num: 1, title: '자바스크립트 공부', done: true },
+        { num: 2, title: 'JS 프로젝트', done: true },
+        { num: 3, title: 'React 공부', done: false },
+      ];
+
+      // 상태로 관리
+      // 상태가 수정되면 화면이 리렌더링되는 리액트
+      const [itemList, setItemList] = React.useState(initItemList);
+
+      let lastNum = itemList.length;
+      
+      // 할일 추가
+      function addItem(title){
+        console.log('할일 추가');
+        // 데이터 갱신, itemList에 item 추가
+        // num, title, done 속성을 가진 item 객체 생성
+        const item = { num: ++lastNum, title, done: false };
+        itemList.push(item);
+
+        setItemList([ ...itemList ]);
+      }
+
+      // 완료/미완료 처리
+      function toggleDone(num){
+        console.log(num, '완료/미완료');
+        // 데이터 갱신, itemList에서 num에 해당하는 item의 done 값을 수정
+        const selectedItem = itemList.find(item => item.num === num);
+        // item의 done 값을 수정
+        selectedItem.done = !selectedItem.done;
+
+        render(); // 데이터를 기반으로 화면 갱신
+      }
+
+      // 할일 삭제
+      function deleteItem(num){
+        console.log(num, '할일 삭제');
+        // 데이터 갱신, itemList에서 num에 해당하는 item 삭제
+        const index = itemList.findIndex(item => item.num === num);
+        itemList.splice(index, 1);
+        
+        render(); // 데이터를 기반으로 화면 갱신
+      }
+
       return (
         <div id="main">
           <div id="container">
             <ul>
               <li>
                 <h2>쇼핑 목록</h2>
-                <TodoInput />
-                <TodoList />
+                <TodoInput addItem={ addItem } />
+                <TodoList itemList={ itemList } />
               </li>
             </ul>
           </div>
@@ -65,30 +102,48 @@
       );
     }
 
-    function TodoInput(){
+    function TodoInput({ addItem }){
+      // 추가 버튼 클릭 이벤트 핸들러
+      const handleAdd = () => {
+        console.log('추가 버튼 클릭');
+        const inputElem = document.querySelector('.todoinput > input');
+        if(inputElem.value.trim() !== ''){
+          addItem(inputElem.value.trim());
+          inputElem.value = '';
+          inputElem.focus();
+        }
+      };
+
+      // 엔터 이벤트 핸들러
+      const handleAddKeydown = (event) => {
+        console.log('keydown', event);
+        if(event.key === 'Enter') handleAdd();
+      };
+
       return (
         <div className="todoinput">
-          <input type="text" autoFocus />
-          <button type="button">추가</button>
+          <input type="text" autoFocus onKeyDown={ handleAddKeydown } />
+          <button type="button" onClick={ handleAdd }>추가</button>
         </div>
       );
     }
 
-    function TodoList(){
+    function TodoList({ itemList }){
+      const list = itemList.map((item) => {
+        return <TodoItem key={ item.num } item={ item } />;
+      });
       return(
         <ul className="todolist">
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
+          { list }
         </ul>
       );
     }
 
-    function TodoItem(){
+    function TodoItem({ item }){
       return (
         <li>
-          <span>1</span>
-          <span><s>샘플1</s></span>
+          <span>{ item.num }</span>
+          <span><s>{ item.title }</s></span>
           <button type="button">삭제</button>
         </li>
       );
