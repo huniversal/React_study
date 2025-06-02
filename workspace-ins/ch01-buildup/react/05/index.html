@@ -61,9 +61,11 @@
         // 데이터 갱신, itemList에 item 추가
         // num, title, done 속성을 가진 item 객체 생성
         const item = { num: ++lastNum, title, done: false };
-        itemList.push(item);
+        // 객체의 불변성을 유지하기 위한 코드
+        setItemList([ ...itemList, item ]);
 
-        setItemList([ ...itemList ]);
+        // itemList.push(item);
+        // setItemList([ ...itemList ]);
       }
 
       // 완료/미완료 처리
@@ -143,7 +145,7 @@
       return (
         <li>
           <span>{ item.num }</span>
-          <span><s>{ item.title }</s></span>
+          <span>{ item.done ? <s>{ item.title }</s> : item.title }</span>
           <button type="button">삭제</button>
         </li>
       );
