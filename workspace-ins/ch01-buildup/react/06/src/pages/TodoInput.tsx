@@ -7,6 +7,7 @@ interface TodoInputProps {
 function TodoInput({ addItem }: TodoInputProps){
 
   // 리렌더링 되면 일반 input 요소의 값은 사라지므로 state로 관리
+  // 사용자 입력을 다루는 경우에는 대부분 state로 관리(value 속성을 추가, onChange 이벤트로 value 수정)
   const [title, setTitle] = useState('');
 
   // 추가 버튼 클릭 이벤트 핸들러
