@@ -1,6 +1,12 @@
-import TodoItem from "./TodoItem";
+import TodoItem, { type TodoItemType } from "./TodoItem";
 
-function TodoList({ itemList, toggleDone, deleteItem }){
+interface TodoListProps {
+  itemList: TodoItemType[];
+  toggleDone: (num:number) => void;
+  deleteItem: (num:number) => void;
+}
+
+function TodoList({ itemList, toggleDone, deleteItem }:TodoListProps){
   const list = itemList.map((item) => {
     return <TodoItem key={ item.num } item={ item } toggleDone={toggleDone} deleteItem={deleteItem} />;
   });
