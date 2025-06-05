@@ -44,8 +44,6 @@ const reaction = {
       },
     });
   },
-
-  // 상태값(데이터)을 관리하는 객체를 생성해서 반환
   useState: (initialValue) => {
     // 최초 호출되었을 경우에만 초기값을 지정하고 
     // 이후에 다시 호출되는 경우에는 이전 값을 유지한다.
@@ -71,5 +69,7 @@ const reaction = {
     // [현재값, 변경함수] 배열로 반환
     return [_stateValue, setValue];
   },
+  // 상태값(데이터)을 관리하는 객체를 생성해서 반환
+
 };
 export default reaction;

@@ -21,6 +21,10 @@ function addItem(title){
   console.log('할일 추가');
   const item = { num: itemList[itemList.length-1]?.num + 1 || 1, title, done: false };
   setItemList([ ...itemList, item ]);
+
+  // const inputElem = document.querySelector('.todoinput > input');
+  // inputElem.value = '';
+  // inputElem.focus();
 }
   function toggleDone(num) {
     const newItemList = itemList.map(item =>
