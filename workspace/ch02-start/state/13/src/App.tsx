@@ -19,7 +19,7 @@ function App() {
         }
         setPosition(newPosition);
       }}></div>
-      <div className="circle" style={{transform: `translate(${position.x}px, ${position.y}px)`}}></div>   
+      <div className="circle" style={{pointerEvents:'none', transform: `translate(${position.x}px, ${position.y}px)`}}></div>   
     </>
   )
 }
