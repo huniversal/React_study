@@ -58,8 +58,8 @@ function App() {
 
       
     // immer 라이브러리 사용
-    // user를 복사한 새로운 객체를 만들어서 콜백함수의 인자로 전달
-    const newUser = produce(user, draft => {
+    // user를 복사한 새로운 객체(draft)를 만들어서 콜백함수의 인자로 전달
+    const newUser = produce(user, (draft) => {
       const target = draft.extra.addressBook.find(addr => addr.id === Number(e.target.id));
       if (target) {
         target.value = e.target.value;
@@ -68,11 +68,11 @@ function App() {
 
     // 회사 주소가 변경될 경우
     // 회사 주소가 변경될 경우
-    console.log('user', user === newUser); // false
-    console.log('user.extra', user.extra === newUser.extra);
-    console.log('user.extra.addressBook', user.extra.addressBook === newUser.extra.addressBook);
-    console.log('회사', user.extra.addressBook[0] === newUser.extra.addressBook[0]);
-    console.log('회사주소', user.extra.addressBook[0].value === newUser.extra.addressBook[0].value);
+    // console.log('user', user === newUser); // false
+    // console.log('user.extra', user.extra === newUser.extra);
+    // console.log('user.extra.addressBook', user.extra.addressBook === newUser.extra.addressBook);
+    // console.log('회사', user.extra.addressBook[0] === newUser.extra.addressBook[0]);
+    // console.log('회사주소', user.extra.addressBook[0].value === newUser.extra.addressBook[0].value);
     setUser(newUser);
 
   }
