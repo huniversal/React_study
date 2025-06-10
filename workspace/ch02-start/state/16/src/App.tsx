@@ -22,7 +22,7 @@ function App() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm({ 
     mode: 'onSubmit', // default: onSubmit, 최초 검증 시점
     reValidateMode: 'onBlur', // default: onChange, 재검증 시점
-    criteriaMode: '', // default: firstError, errors 객체에 첫 오류 하나만 포함하거나 전부 포함하거나 
+    // criteriaMode: '', // default: firstError, errors 객체에 첫 오류 하나만 포함하거나 전부 포함하거나 
     defaultValues: {
       name: '',
       email: '',
