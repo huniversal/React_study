@@ -19,17 +19,22 @@ const cellphoneExp = /^(01[016789]{1})[0-9]{3,4}[0-9]{4}$/;
 
 function App() {
   // useForm은 객체를 반환한다
+  // [register] input 필드를 폼에 등록하고 검증 규칙 설정
+  // [handleSubmit] 폼 제출 처리 (검증 통과시만 실행)
+  // [watch] 실시간으로 input 값 감시
+  // [errors] 검증 에러 정보 담은 객체 
+
   const { register, handleSubmit, watch, formState: { errors } } = useForm({ 
-    mode: 'onSubmit', // default: onSubmit, 최초 검증 시점
-    reValidateMode: 'onBlur', // default: onChange, 재검증 시점
+    mode: 'onSubmit', // default: onSubmit, 최초 검증 시점 
+    reValidateMode: 'onBlur', // default: onChange, 재검증 시점 
     // criteriaMode: '', // default: firstError, errors 객체에 첫 오류 하나만 포함하거나 전부 포함하거나 
-    defaultValues: {
-      name: '',
-      email: '',
-      cellphone: '010'
-    }
-  })
-  const onSubmitHandler = (user: User) => {
+    defaultValues: { 
+      name: '', 
+      email: '', 
+      cellphone: '010'  
+    } 
+  }) 
+  const onSubmitHandler = (user: User) => { 
     console.log('서버에 전송...', user);
   };
 
@@ -40,7 +45,7 @@ function App() {
         <label htmlFor="name">*이름</label>
         <input id="name" 
           { ...register('name', {
-            required: '이름을 입력하세요',
+            required: '이름을 입력하세요',  // 필수 입력
             minLength: {
               value: 2, 
               message: '2글자 이상 입력하세요'
@@ -56,7 +61,7 @@ function App() {
         <label htmlFor="email">*이메일</label>
         <input id="email" 
           { ...register('email', {
-            required: '이메일을 입력하세요',
+            required: '이메일을 입력하세요',  // 필수 입력
             pattern: {
               value: emailExp,
               message: "이메일 형식에 맞지 않습니다."
@@ -68,7 +73,7 @@ function App() {
         <label htmlFor="cellphone">*휴대폰</label>
         <input id="cellphone" 
           { ...register('cellphone', {
-            required: '휴대폰 번호를 입력하세요',
+            required: '휴대폰 번호를 입력하세요', // 필수 입력
             pattern: {
               value: cellphoneExp,
               message: "휴대폰 번호 형식에 맞지 않습니다."

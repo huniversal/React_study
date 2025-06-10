@@ -41,21 +41,22 @@ function App() {
     cellphone: '010'
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
-      [event.target.name]: event.target.value
+      // name 속성을 key, value 속성을 값으로
+      [e.target.name]: e.target.value
     });
   };
 
   // 검증 에러가 발생하거나 에러가 사라질 때 리렌더링이 필요하므로 상태로 관리해야한다.
   const [ errors, setErrors ] = useState<FormErrors>({});
 
-  const onSubmitHandler = (event: React.FormEvent) => {
+  const onSubmitHandler = (e: React.FormEvent) => {
     // 브라우저의 기본 동작 취소(submit 동작 취소)
-    event.preventDefault();
+    e.preventDefault();
 
-    const newErrors: FormErrors = {};
+    const newErrors: FormErrors = {}; // 빈 객체 생성을 통해 검증 실패 항목을 쌓음
 
     // 필수 입력 체크
     if(user.name.trim() === ''){
@@ -77,10 +78,10 @@ function App() {
     }
     
     if(newErrors){  // 입력값 검증 실패
-      setErrors(newErrors);
+      setErrors(newErrors); // 오류 있으면 상태 업데이트 -> 이후 렌더링
       console.error(errors);
     }else{  // 입력값 검증 통과
-      setErrors({});
+      setErrors({});  // 오류 없으면 초기화하고 사용자 정보 출력
       console.log('서버에 전송...', user);
     }
   };
@@ -90,8 +91,15 @@ function App() {
       <h1>15 회원가입 입력값 상태 관리</h1>
       <form onSubmit={onSubmitHandler}>
         <label htmlFor="name">*이름</label>
-        <input id="name" name="name" value={user.name} onChange={handleChange} /><br />
-        <div style={errorStyle}>{ errors.name?.message }</div>
+        <input 
+          id="name"  
+          name="name" 
+          value={user.name} 
+          onChange={handleChange} 
+        /><br />
+        <div 
+          style={errorStyle}
+        >{ errors.name?.message }</div>
 
         <label htmlFor="email">*이메일</label>
         <input id="email" name="email" value={user.email} onChange={handleChange} /><br />
