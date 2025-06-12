@@ -352,6 +352,17 @@
       - `npm i react-hook-form`
 * 🔊 [3장 클래스 컴포넌트와 컴포넌트의 라이프 사이클](./workspace-ins/ch03-class)
   - 🧑‍💻 [01 클래스 컴포넌트](./workspace-ins/ch03-class/01-classbase)
+
+### 10일차(2025.06.11 수)
+#### 오전(3시간)
+* 🔊 [3장 클래스 컴포넌트와 컴포넌트의 라이프 사이클](./workspace-ins/ch03-class)
+  - 🧑‍💻 [02 클래스 컴포넌트 - 함수형 컴포넌트와 같이 사용](./workspace-ins/ch03-class/02-functionbase)
+  - 🧑‍💻 [03 클래스 컴포넌트 - 컴포넌트의 라이프 사이클](./workspace-ins/ch03-class/03-lifecycle)
+
+#### 오후(3시간)
+* 🔊 [4장 리액트 훅](./workspace-ins/ch04-hooks#4장-리액트-훅)
+  - 🧑‍💻 [01 useState - 상태 관리](./workspace-ins/ch03-class/04-hooks/01-useState)
+  - 🧑‍💻 [02 useEffect - side effect 관리](./workspace-ins/ch03-class/04-hooks/02-useEffect)
   
 # 5. 참고 사이트
 
