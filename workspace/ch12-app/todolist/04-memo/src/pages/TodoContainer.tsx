@@ -1,7 +1,7 @@
 import Todo from "@pages/Todo";
 import type { TodoItem } from "@pages/TodoItem";
 import todoReducer from "@pages/todoReducer";
-import { useReducer, useRef, useCallback } from "react";
+import { useReducer, useRef, useCallback, useEffect } from "react";
 
 function TodoContainer(){
   "use no memo"
@@ -22,6 +22,11 @@ function TodoContainer(){
     const item: TodoItem = { _id: nextId.current++, title, done: false };
     todoDispatch({ type: 'ADD', value: item });
   }, [todoDispatch]);
+
+  const prevAddItem = useRef(addItem);
+  useEffect(()=> {
+    console.log("addItem 참조 변경", prevAddItem.current === addItem)
+  })
 
   // TODO 1 useCallback으로 콜백 함수 메모이제이션
   // 완료/미완료 처리

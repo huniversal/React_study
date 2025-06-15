@@ -2,7 +2,6 @@
 import TodoInput from "@pages/TodoInput";
 import type { TodoItem } from "@pages/TodoItem";
 import TodoList from "@pages/TodoList";
-import { useCallback } from "react";
 
 interface TodoProps {
   itemList: TodoItem[];
