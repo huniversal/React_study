@@ -40,13 +40,13 @@ function App() {
 
   return (
     <>
-      <h1>16 회원가입 입력값 검증(feat. react-hook-form)</h1>
-      <form onSubmit={handleSubmit(onSubmitHandler)}>
-        <label htmlFor="name">*이름</label>
+      <h1>16 회원가입 입력값 검증(feat. react-hook-form)</h1> 
+      <form onSubmit={handleSubmit(onSubmitHandler)}> 
+        <label htmlFor="name">*이름</label> 
         <input id="name" 
-          { ...register('name', {
+          { ...register('name', { 
             required: '이름을 입력하세요',  // 필수 입력
-            minLength: {
+            minLength: { 
               value: 2, 
               message: '2글자 이상 입력하세요'
             },

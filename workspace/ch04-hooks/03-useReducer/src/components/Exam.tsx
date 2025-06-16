@@ -19,8 +19,8 @@ function counterReducer(state: number, action: CounterAction): number {
 const Exam = () => {
 
   // dispatch : 상태 변화가 있어야 한다는 사실을 알리는 함수
-  // 1. state -> 현재 상태 값
-  // 2. dispatch -> 상태변경 요청
+  // 1. state -> 현재 상태 값 
+  // 2. dispatch -> 상태변경 요청 
   // 3. reducer -> 이전 상태 + 액션 받아서 새로운 상태 리턴하는 순수함수
 
   // [1. 상태(state)]

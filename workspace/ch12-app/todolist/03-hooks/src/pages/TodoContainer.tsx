@@ -16,8 +16,7 @@ function TodoContainer(){
   const [itemList, todoDispatch] = useReducer(todoReducer, initItemList)
 
   // TODO 2. useRef를 사용해서 nextId를 생성
-  // -> nextId 업데이트 안됨
-  const nextId = useRef(3);
+  const nextId = useRef(initItemList.length);
 
   // 할일 추가
   const addItem = (title: string) => {

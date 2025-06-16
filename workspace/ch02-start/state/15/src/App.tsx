@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const errorStyle = {
   fontSize: '12px',
@@ -41,6 +41,17 @@ function App() {
     cellphone: '010'
   });
 
+  // 검증 에러가 발생하거나 에러가 사라질 때 리렌더링이 필요하므로 상태로 관리해야한다.
+  const [ errors, setErrors ] = useState<FormErrors>({});
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      console.error('현재 유효성 검사 오류:', errors);
+    } else {
+      console.log('현재 오류 없음');
+    }
+  }, [errors]); 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
@@ -49,8 +60,7 @@ function App() {
     });
   };
 
-  // 검증 에러가 발생하거나 에러가 사라질 때 리렌더링이 필요하므로 상태로 관리해야한다.
-  const [ errors, setErrors ] = useState<FormErrors>({});
+
 
   const onSubmitHandler = (e: React.FormEvent) => {
     // 브라우저의 기본 동작 취소(submit 동작 취소)
@@ -77,14 +87,15 @@ function App() {
       newErrors.cellphone = { message: '휴대폰 형식에 맞지 않습니다.' };
     }
     
-    if(newErrors){  // 입력값 검증 실패
+    if(Object.keys(newErrors).length > 0){  // 입력값 검증 실패
       setErrors(newErrors); // 오류 있으면 상태 업데이트 -> 이후 렌더링
-      console.error(errors);
+      // console.error(newErrors);
     }else{  // 입력값 검증 통과
       setErrors({});  // 오류 없으면 초기화하고 사용자 정보 출력
       console.log('서버에 전송...', user);
     }
   };
+
 
   return (
     <>

@@ -12,6 +12,10 @@ function TodoContainer(){
     { _id: 3, title: 'React 공부', done: false },
   ];
 
+  for(let i = 4; i<100; i++){
+    initItemList.push({ _id: i, title:`샘플-${i}`, done: false })
+  }
+
   const nextId = useRef(initItemList.length + 1);
 
   // 상태가 수정되면 자동으로 화면이 리렌더링 된다.

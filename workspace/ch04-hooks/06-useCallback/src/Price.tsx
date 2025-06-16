@@ -24,4 +24,4 @@ const Price = ({ data, quantity, handleQuantityChange }: PriceProps) => {
   );
 };
 
-export default Price;
+export default React.memo(Price);

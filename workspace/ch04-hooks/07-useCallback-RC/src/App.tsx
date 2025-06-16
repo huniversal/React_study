@@ -4,7 +4,7 @@ import Shipping from './Shipping';
 import Price from "./Price";
 
 function App() {
-
+  "use no memo";
   const data = {
     _id: 2,
     price: 125000,
