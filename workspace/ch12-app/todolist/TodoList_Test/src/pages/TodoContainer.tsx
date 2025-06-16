@@ -1,46 +1,56 @@
 import Todo from "@pages/Todo";
-import type { TodoItem } from "@pages/TodoItem";
+// import type { TodoItem } from "@pages/TodoItem";
 import todoReducer from "@pages/todoReducer";
 import { useReducer, useRef, useCallback, useEffect } from "react";
+import useFetch from "../hooks/useFetch";
 
-function TodoContainer(){
-  "use no memo"
-  // 샘플 목록
-  const initItemList: TodoItem[] = [
-    { _id: 1, title: '자바스크립트 공부', done: true },
-    { _id: 2, title: 'JS 프로젝트', done: true },
-    { _id: 3, title: 'React 공부', done: false },
-  ];
+function TodoContainer() {
+  // 서버에서 데이터 받아오기
+  const { isLoading, error, data, requestPost } = useFetch({ url: '/todolist?delay=1000' });
 
-  const nextId = useRef(initItemList.length + 1);
+  // useReducer: 초기값은 일단 빈배열로 시작
+  const [itemList, todoDispatch] = useReducer(todoReducer, []);
 
-  // 상태가 수정되면 자동으로 화면이 리렌더링 된다.
-  const [ itemList, todoDispatch ] = useReducer(todoReducer, initItemList);
+  // nextId는 useRef로 관리 (초기값은 1, 나중에 data 들어오면 보정)
+  const nextId = useRef(1);
 
-  // 할일 추가
-  const addItem = useCallback((title: string) => {
-    const item: TodoItem = { _id: nextId.current++, title, done: false };
-    todoDispatch({ type: 'ADD', value: item });
-  }, [todoDispatch]);
+  // 데이터 받아오면 초기 상태 세팅
+  useEffect(() => {
+    if (data?.items) {
+      const newList = data.items.map(item => ({
+        _id: item._id,
+        title: item.title,
+        done: item.done ?? false
+      }));
 
-  const prevAddItem = useRef(addItem);
-  useEffect(()=> {
-    console.log("addItem 참조 변경", prevAddItem.current === addItem)
-  })
+      todoDispatch({ type: 'INIT', value: newList });
+      nextId.current = data.items.length + 1;
+    }
+  }, [data]);
 
-  // TODO 1 useCallback으로 콜백 함수 메모이제이션
-  // 완료/미완료 처리
+  // 추가
+  const addItem = useCallback(async (title: string) => {
+    const newTodo = { title, content: '빈내용' };
+    await requestPost({ url: '/todolist' }, newTodo);
+  }, [requestPost]);
+
+  // 완료 토글
   const toggleDone = useCallback((_id: number) => {
     todoDispatch({ type: 'TOGGLE', value: { _id } });
-  }, [todoDispatch])
+  }, [todoDispatch]);
 
-  // 할일 삭제
+  // 삭제
   const deleteItem = useCallback((_id: number) => {
     todoDispatch({ type: 'DELETE', value: { _id } });
-  }, [todoDispatch])
+  }, [todoDispatch]);
+
+  // 로딩 & 에러 처리 (조건부 렌더링)
+  if (isLoading) return <p>로딩중...</p>;
+  if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
+
 
   return (
-    <Todo itemList={ itemList } addItem={ addItem } toggleDone={ toggleDone } deleteItem={ deleteItem } />
+    <Todo itemList={itemList} addItem={addItem} toggleDone={toggleDone} deleteItem={deleteItem} />
   );
 }
 

@@ -2,6 +2,7 @@ import type { TodoItem } from "@pages/TodoItem";
 import { produce } from "immer";
 
 type TodoAction = 
+  | { type: 'INIT'; value: TodoItem[] }
   | { type: 'ADD'; value: TodoItem }
   | { type: 'TOGGLE' | 'DELETE'; value: Pick<TodoItem, '_id'> };
 
@@ -11,6 +12,9 @@ function todoReducer(state: TodoItem[], action: TodoAction){
   const targetIndex = state.findIndex(item => item._id === action.value._id);
 
   switch(action.type){
+    case 'INIT':
+      newState = action.value;
+      break;
     case 'ADD':
       newState = produce(state, draft => {
         draft.push(action.value);
