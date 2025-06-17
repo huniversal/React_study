@@ -2,8 +2,10 @@ import useAxios from '@hooks/useAxios';
 import type { TodoItemRes } from "#types/todo";
 
 const TodoInfo = () => {
-  const { isLoading, error, data } = useAxios<TodoItemRes>({ url: '/todolist/5?delay=1000'});
-
+  console.log(location);
+  const todoId = location.pathname.split('/').pop();
+  const { isLoading, error, data } 
+    = useAxios<TodoItemRes>({ url: `/todolist/${todoId}?delay=1000`});
   return (
     <>
       <h1>10 customHook - useFatch, useAxios 커스텀 훅 사용</h1>

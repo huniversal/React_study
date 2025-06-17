@@ -1,9 +1,17 @@
 import TodoList from '@pages/TodoList';
+import TodoInfo from "@pages/TodoInfo";
 // import useAxios, { type TodoListRes } from "@hooks/useAxios";
 
 function App() {
+
+  const todoId = location.pathname.split('/').pop();
+
   return (
-    <TodoList />
+    <>
+      { todoId && <TodoInfo /> }
+      { !todoId && <TodoList /> }
+      
+    </>
   )
 }
 
