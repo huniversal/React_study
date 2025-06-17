@@ -16,7 +16,7 @@ interface Todo {
 }
 
 // Todo 목록 조회 성공시 응답 데이터 타입 정의
-interface TodoListRes {
+export interface TodoListRes {
   ok: 1;  // 성공 여부 (1: 성공)
   items: Todo[];  // Todo 아이템 배열
   pagination: {   // 페이지네이션 정보
@@ -27,6 +27,12 @@ interface TodoListRes {
   };
 }
 
+interface TodoItemRes {
+  ok: 1; 
+  item: Todo;
+}
+
+
 // 에러 응답 데이터 타입 정의
 interface ErrorRes {
   ok: 0;  // 성공 여부 (0: 실패)
@@ -34,11 +40,11 @@ interface ErrorRes {
 }
 
 // 응답 데이터 타입 정의
-type ResData = TodoListRes | ErrorRes;
+type ResData = TodoListRes | TodoItemRes | ErrorRes;
 
 function useFetch(fetchParams: FetchParams) {
   // Todo 목록을 저장할 상태 (초기값: null)
-  const [data, setData] = useState<TodoListRes | null>(null);
+  const [data, setData] = useState<ResData | null>(null);
 
   // 에러 메시지를 저장할 상태 (초기값: null)
   const [error, setError] = useState<Error | null>(null);
@@ -150,7 +156,7 @@ export default useFetch;
 //   // 로딩 상태를 저장할 상태 (초기값: false)
 //   const [isLoading, setIsLoading] = useState(false);
 
-//   // Todo API 서버에 데이터를 요청하는 비동기 함수
+//   // Todo: API 서버에 데이터를 요청하는 비동기 함수
 //   const requestFetch = async (params: FetchParams) => {
 //     console.log('fetchTodo 함수 호출됨', params);
 //     try{
@@ -159,6 +165,7 @@ export default useFetch;
       
 //       // fetch API를 사용하여 서버에 GET 요청
 //       // res에 응답 객체가 담긴다.
+//       // TODO: 서버에 API GET 요청
 //       const res = await fetch(API_SERVER + params.url);
 //       console.log('서버 응답:', res);
 //       // 응답 데이터를 JSON 형식으로 파싱
@@ -185,6 +192,7 @@ export default useFetch;
 //     }
 //   };
 
+//   // TODO:  API 서버에 POST 요청
 //   const requestPost = async(params: FetchParams, todo: CreateTodoRequest) => {
 //     console.log('requestPost 호출됨', todo);
 //     try {
@@ -195,9 +203,12 @@ export default useFetch;
 
 //         const res = await fetch(API_SERVER + params.url, {
 //           method: 'POST',
+//           // headers : 요청의 본문(body)이 어떤 타입인지 서버에게 알려주는 것
 //           headers: {
 //             'Content-Type': 'application/json'
 //           },
+//           // JS 객체를 문자열로 바꿔주는 함수
+//           // Why? fetch()에서 POST 요청을 할 때는 body에는 순수 텍스트만 보낼 수 있다.
 //           body: JSON.stringify(todo)
 //         });
         
@@ -208,8 +219,7 @@ export default useFetch;
 //           await requestFetch(fetchParams);
 //           setError(null);
 //         } else {
-//           setData(null);
-//           setError(new Error(jsonRes.error.message));
+//           throw new Error(jsonRes.error.message);
 //         }
 //       } catch (err) {
 //         console.error('에러 발생', err);

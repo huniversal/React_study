@@ -1,4 +1,4 @@
-import useFetch from '@hooks/useFetch';
+import useFetch, {type TodoListRes } from '@hooks/useFetch';
 // import useAxios from "@hooks/useAxios";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
 
       {/* Todo 목록을 리스트로 렌더링 */}
       <ul>
-        { data?.items.map((item) => (
+        { (data as TodoListRes)?.items.map((item) => (
           <li key={item._id}>{item.title}</li>
         )) }
       </ul>
