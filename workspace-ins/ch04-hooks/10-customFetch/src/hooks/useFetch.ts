@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { ResData } from "#types/todo";
 
 // API 서버 엔드포인트 주소 상수 정의
 const API_SERVER = 'https://fesp-api.koyeb.app/todo';
@@ -8,37 +9,9 @@ interface FetchParams {
   url: string;
 }
 
-// Todo 아이템의 타입 정의
-interface Todo {
-  _id: number;      // Todo 아이템의 고유 식별자
-  title: string;    // Todo 제목
-  done: boolean;    // 완료 여부
-}
-
-// Todo 목록 조회 성공시 응답 데이터 타입 정의
-interface TodoListRes {
-  ok: 1;  // 성공 여부 (1: 성공)
-  items: Todo[];  // Todo 아이템 배열
-  pagination: {   // 페이지네이션 정보
-    page: number;      // 현재 페이지
-    limit: number;     // 페이지당 아이템 수
-    total: number;     // 전체 아이템 수
-    totalPages: number; // 전체 페이지 수
-  };
-}
-
-// 에러 응답 데이터 타입 정의
-interface ErrorRes {
-  ok: 0;  // 성공 여부 (0: 실패)
-  error: Error; // 에러 객체
-}
-
-// 응답 데이터 타입 정의
-type ResData = TodoListRes | ErrorRes;
-
-function useFetch(fetchParams: FetchParams) {
-    // Todo 목록을 저장할 상태 (초기값: null)
-  const [data, setData] = useState<TodoListRes | null>(null);
+function useFetch<T>(fetchParams: FetchParams) {
+  // Todo 목록을 저장할 상태 (초기값: null)
+  const [data, setData] = useState<T | null>(null);
 
   // 에러 메시지를 저장할 상태 (초기값: null)
   const [error, setError] = useState<Error | null>(null);
@@ -48,7 +21,7 @@ function useFetch(fetchParams: FetchParams) {
 
   // Todo API 서버에 데이터를 요청하는 비동기 함수
   const requestFetch = async (params: FetchParams) => {
-    console.log('fetchTodo 함수 호출됨', params);
+    console.log('fetch api로 요청', params);
     try{
       // 로딩 상태를 true로 설정
       setIsLoading(true);
@@ -63,7 +36,7 @@ function useFetch(fetchParams: FetchParams) {
       // 응답이 성공적인 경우
       if(jsonRes.ok){
         // Todo 목록 상태 업데이트
-        setData(jsonRes);
+        setData(jsonRes as T);
         setError(null);
       }else{
         // 에러가 발생한 경우 에러 메시지 상태 업데이트
