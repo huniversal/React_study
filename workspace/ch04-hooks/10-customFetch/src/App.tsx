@@ -1,9 +1,10 @@
-import useFetch, {type TodoListRes } from '@hooks/useFetch';
-// import useAxios from "@hooks/useAxios";
+import useFetch from '@hooks/useFetch';
+import type { TodoListRes } from "#types/todo";
+// import useAxios, { type TodoListRes } from "@hooks/useAxios";
 
 function App() {
 
-  const { isLoading, error, data } = useFetch({ url: '/todolist?delay=1000'});
+  const { isLoading, error, data } = useFetch<TodoListRes>({ url: '/todolist?delay=1000'});
 
   console.log("APP 렌더링", isLoading, error, data)
 
@@ -22,7 +23,7 @@ function App() {
 
       {/* Todo 목록을 리스트로 렌더링 */}
       <ul>
-        { (data as TodoListRes)?.items.map((item) => (
+        { (data)?.items.map((item) => (
           <li key={item._id}>{item.title}</li>
         )) }
       </ul>
