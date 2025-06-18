@@ -174,7 +174,7 @@ npm i react-router
     const { _id } = useParams();
     // ...
   }
-```
+  ```
 
 ## 5.2 중첩 라우트 (nested route)
 * Route 컴포넌트 내부에 자식 Route 컴포넌트를 포함
