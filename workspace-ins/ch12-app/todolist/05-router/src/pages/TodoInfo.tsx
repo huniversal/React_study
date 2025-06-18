@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, Outlet, useMatch, useParams } from "react-router";
 
 export interface TodoItem {
@@ -9,6 +10,15 @@ export interface TodoItem {
   updatedAt: string;
 }
 
+const item = {
+  _id: 2,
+  title: '자바스크립트 복습',
+  content: '리액트도 당연히 복습.',
+  done: false,
+  createdAt: '2025.06.17 16:49:00',
+  updatedAt: '2025.06.17 16:49:00',
+};
+
 function TodoInfo() {
 
   // "/list/:_id" 정의된 path 값이 있을 때 
@@ -19,15 +29,21 @@ function TodoInfo() {
 
   const infoMatch = useMatch('/list/:_id');
 
+  useEffect(() => {
+    // TODO API 서버와 통신해서 item 받아오기
+
+    
+  }, []);
+
   return (
     <div id="main">
       <h2>할일 상세 보기</h2>
       <div className="todo">
-        <div>제목 : 잠자기</div>
-        <div>내용 : 주말에 수업 끝나면 잠이나 실컷 자야지</div>
-        <div>상태 : 미완료</div>
-        <div>작성일 : 2025.06.16 12:23:45</div>
-        <div>수정일 : 2025.06.16 13:45:12</div>
+        <div>제목 : { item.title }</div>
+        <div>내용 : { item.content }</div>
+        <div>상태 : { item.done ? '완료' : '미완료' }</div>
+        <div>작성일 : { item.createdAt }</div>
+        <div>수정일 : { item.updatedAt }</div>
 
         { infoMatch && 
           <>
@@ -38,7 +54,7 @@ function TodoInfo() {
         
       </div>
 
-      <Outlet />
+      <Outlet context={{ item }} />
 
     </div>
   );
