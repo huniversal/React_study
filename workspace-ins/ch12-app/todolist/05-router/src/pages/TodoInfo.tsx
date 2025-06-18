@@ -6,6 +6,8 @@ function TodoInfo() {
   // 주소창의 값이 "/list/3" 일 경우 useParams()가 리턴하는 값: { _id: 3 }
   const { _id } = useParams();
 
+  console.log(useParams());
+
   return (
     <div id="main">
       <h2>할일 상세 보기</h2>
@@ -20,7 +22,7 @@ function TodoInfo() {
       </div>
 
       <Outlet />
-      
+
     </div>
   );
 }

@@ -14,12 +14,12 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />, // 에러가 발생했을 때
     children: [
-      { path: '', element: <Home /> },
-      { path: 'home', element: <Home /> },
+      { index: true, element: <Home /> },
+      { path: 'home', element: <Navigate to='/' /> },
       { path: 'about', element: <About /> },
       { path: 'list', element: <TodoList /> },
       { 
-        path: 'list/:_id', 
+        path: 'list/:_id',
         element: <TodoInfo />,
         children: [
           { path: 'edit', element: <TodoEdit /> },
