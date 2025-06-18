@@ -1,4 +1,13 @@
-import { Link, Outlet, useParams } from "react-router";
+import { Link, Outlet, useMatch, useParams } from "react-router";
+
+export interface TodoItem {
+  _id: number;
+  title: string;
+  content?: string;
+  done: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
 
 function TodoInfo() {
 
@@ -7,6 +16,8 @@ function TodoInfo() {
   const { _id } = useParams();
 
   console.log(useParams());
+
+  const infoMatch = useMatch('/list/:_id');
 
   return (
     <div id="main">
@@ -17,8 +28,14 @@ function TodoInfo() {
         <div>상태 : 미완료</div>
         <div>작성일 : 2025.06.16 12:23:45</div>
         <div>수정일 : 2025.06.16 13:45:12</div>
-        <Link to={`/list/${_id}/edit`}>수정</Link>
-        <Link to="/list">목록</Link>
+
+        { infoMatch && 
+          <>
+            <Link to={`/list/${_id}/edit`}>수정</Link>
+            <Link to="/list">목록</Link>
+          </>
+        }
+        
       </div>
 
       <Outlet />
