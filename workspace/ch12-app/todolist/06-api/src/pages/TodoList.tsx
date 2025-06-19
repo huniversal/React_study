@@ -38,17 +38,27 @@ function TodoList() {
     setData(res.data);
   };
   // 삭제 처리
-  const handleDelete = (_id: number) => {
+  const handleDelete = async (_id: number) => {
+    // 1. 먼저 사용자에게 확인받기
+    if (!confirm("정말 삭제하시겠습니까?")) {
+      return; // 취소하면 함수 종료
+    }
+
     console.log("API 서버에 삭제 요청", _id);
 
-    // TODO API 서버에 삭제 요청
-    const res = axios.delete(`todolist/${_id}`);
-    // 삭제 성공
-    const newItems = data?.items.filter(item => item._id !== _id);
-    setData({ items: newItems || [] });
-    alert('삭제 완료');
-    // TODO API 서버에 목록 요청
-    fetchTodoList();
+    try {
+      // TODO API 서버에 삭제 요청
+      await axios.delete(`todolist/${_id}`);
+      
+      // 삭제 성공 - 로컬 상태 업데이트
+      const newItems = data?.items.filter(item => item._id !== _id);
+      setData({ items: newItems || [] });
+      
+      alert('삭제 완료');
+    } catch (error) {
+      console.error('삭제 실패:', error);
+      alert('삭제에 실패했습니다.');
+    }
   };
 
   useEffect(()=>{
