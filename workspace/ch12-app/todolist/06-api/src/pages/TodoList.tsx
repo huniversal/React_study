@@ -42,6 +42,10 @@ function TodoList() {
     console.log("API 서버에 삭제 요청", _id);
 
     // TODO API 서버에 삭제 요청
+    const res = axios.delete(`todolist/${_id}`);
+    // 삭제 성공
+    const newItems = data?.items.filter(item => item._id !== _id);
+    setData({ items: newItems || [] });
     alert('삭제 완료');
     // TODO API 서버에 목록 요청
     fetchTodoList();
