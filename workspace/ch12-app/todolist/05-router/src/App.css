@@ -229,7 +229,14 @@ footer {
     color: #fff;
   }
 }
-
+.input-error {
+  grid-column: 1/-1;
+  color: rgb(218,0,0);
+  font-weight: bold;;
+  &::before {
+    content: "⚠️";
+  }
+}
 /* todo */
 .todo {
   padding: 1rem;

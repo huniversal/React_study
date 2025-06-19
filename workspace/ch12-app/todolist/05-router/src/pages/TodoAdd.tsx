@@ -1,19 +1,59 @@
-import { Link } from "react-router"
-// Link : 라우터간에 이동할 수 있게 도와주는 링크
+import type { TodoItem } from "./TodoInfo";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router";
 
 function TodoAdd() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setFocus,
+    formState: { errors },
+  } = useForm<TodoItem>();
+
+  const addTodo = (formData: TodoItem) => {
+    console.log("API 서버에 등록 요청", formData);
+
+    reset();
+    setFocus('title'); // 폼을 초기화하고 제목 입력창에 포커스
+    alert("할일이 등록되었습니다.");
+  };
   return (
     <div id="main">
       <h2>할일 추가</h2>
       <div className="todo">
-        <form>
+        <form onSubmit={handleSubmit(addTodo)}>
           <label htmlFor="title">제목 :</label>
-          <input type="text" id="title" autoFocus />
+          <input
+            type="text"
+            id="title"
+            autoFocus
+            {...register("title", {
+              required: "제목을 입력하세요.",
+              pattern: {
+                value: /\S/,
+                message: "제목에 공백만 입력할 수 없습니다.",
+              },
+            })}
+          />
+          <div className="input-error">{errors.title?.message}</div>
           <br />
           <label htmlFor="content">내용 :</label>
-          <textarea id="content" cols={23} rows={5}></textarea>
+          <textarea
+            id="content"
+            cols={23}
+            rows={5}
+            {...register("content", {
+              required: "내용을 입력하세요.",
+              pattern: {
+                value: /\S/,
+                message: "내용에 공백만 입력할 수 없습니다.",
+              },
+            })}
+          ></textarea>
+          <div className="input-error">{errors.content?.message}</div>
           <br />
-          <Link to="/list/3">추가</Link>
+          <button type="submit">추가</button>
           <Link to="/list">취소</Link>
         </form>
       </div>
