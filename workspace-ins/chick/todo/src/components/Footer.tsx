@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer>
-      <p>Copyrightⓒ FrontEnd BootCamp 13기 박선영. All rights reserved.</p>
+      <p>멋쟁이 사자처럼 FrontEnd BootCamp</p>
     </footer>
   );
 }
