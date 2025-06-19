@@ -1,6 +1,8 @@
+import useAxiosInstance from '@hooks/useAxiosInstance';
 import type { TodoItem } from "@pages/TodoInfo";
-import { Link, useNavigate, useOutletContext } from "react-router";
+import { Link, useNavigate, useOutletContext, useLocation } from "react-router";
 import { useForm } from "react-hook-form";
+import { useEffect } from 'react';
 
 interface OutletContextProps {
   item: TodoItem;
@@ -11,6 +13,11 @@ function TodoEdit() {
   // useNavigate(내가 가고 싶은곳 주소)
 
   const { item } = useOutletContext<OutletContextProps>();
+  const axiosInstance = useAxiosInstance();
+
+  const location = useLocation();
+  const updated = location.state?.updates;
+  // useLocation().state?.updates는 현재 페이지의 상태에서 updates를 리턴한다
 
   // TODO React form 다시 보기!!
   // useForm에 디폴트벨류를 세팅 해둠
@@ -22,22 +29,42 @@ function TodoEdit() {
     }
   });
 
-  const updateTodo = (formData: TodoItem) => {
-    console.log("API 서버에 수정 요청", formData);
-    //TODO API 서버에 수정 요청
+  // useEffect(() => {
+  //   if (location.state?.updates) {
+  //     // 데이터 재로드 로직
+  //     fetchTodoItem(); // 또는 해당하는 데이터 로드 함수
+  //   }
+  // }, [location.state?.updates]);
 
-    alert("할일이 수정 되었습니다.");
+  const updateTodo = async (formData: TodoItem) => {
+    console.log("API 서버에 수정 요청", formData);
+    try {
+      const res = await axiosInstance.patch(`/todolist/${item._id}`, formData);
+      const updatedItem = res.data;
+      alert("할일이 수정 되었습니다.");
+      navigate(`/list/${item._id}`, {
+        state: { 
+          // updates: true,
+          updatedItem: updatedItem // 수정된 데이터 전달
+        }
+      });
+    } catch (err){
+      console.error("할일 수정에 실패했습니다.");
+      alert("할일 수정에 실패했습니다.");
+      return;
+    }
+  }
+  
 
     // 상세보기로 이동
     // navigate("/home");
     // navigate(-1);
-    navigate(`/list/${item._id}`);
     // updateTodo에서 할일을 수정(Update)하게되면 이전 목록 페이지로 이동을 하게 된다
     // 그때 navigate(-1)을 함으로서 뒤로가기 버튼을 누른 효과를 준다
 
     //=== Link는 함수 호출 필요없이 바로 가고 싶을떄
     //=== useNavigate는 언제 사용하냐? -> 함수 안에서 사용할때
-  };
+
   return (
     <>
       <div id="main">

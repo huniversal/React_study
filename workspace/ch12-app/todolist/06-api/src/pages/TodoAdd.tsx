@@ -1,8 +1,10 @@
+import useAxiosInstance from '@hooks/useAxiosInstance';
 import type { TodoItem } from "./TodoInfo";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 
 // TODO 과제 : 리셋이 안되는 문제 해결하기
+
 function TodoAdd() {
   const {
     register,
@@ -11,13 +13,22 @@ function TodoAdd() {
     setFocus,
     formState: { errors },
   } = useForm<TodoItem>();
-
-  const addTodo = (formData: TodoItem) => {
+  
+  const axiosInstance = useAxiosInstance();
+  const addTodo = async (formData: TodoItem) => {
     console.log("API 서버에 등록 요청", formData);
+    // TODO API 서버에 등록 요청
+    try {
+      await axiosInstance.post('/todolist', formData);
+      reset();
+      setFocus('title'); // 폼을 초기화하고 제목 입력창에 포커스
+      alert("할일이 등록되었습니다.");
+    } catch (err) {
+      console.error(err);
+      alert("할일 등록에 실패했습니다.");
+    }
 
-    reset();
-    setFocus('title'); // 폼을 초기화하고 제목 입력창에 포커스
-    alert("할일이 등록되었습니다.");
+
   };
   return (
     <div id="main">
