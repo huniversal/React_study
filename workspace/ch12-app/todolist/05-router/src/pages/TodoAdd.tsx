@@ -1,4 +1,5 @@
 import { Link } from "react-router"
+// Link : 라우터간에 이동할 수 있게 도와주는 링크
 
 function TodoAdd() {
   return (
@@ -13,7 +14,7 @@ function TodoAdd() {
           <textarea id="content" cols={23} rows={5}></textarea>
           <br />
           <Link to="/list/3">추가</Link>
-          <Link to="./list">취소</Link>
+          <Link to="/list">취소</Link>
         </form>
       </div>
     </div>

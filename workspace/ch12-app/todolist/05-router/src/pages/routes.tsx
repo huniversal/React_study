@@ -12,7 +12,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <ErrorPage />, // 사용자가 개발자가 원하지 않는 주소로 들어갔을경우 보여지는 사이트
+
+    // 에러 처리 전용 라우트 
+    // 요청한 URL과 일치하는 라우터가 없을 경우 보여줄 컴포넌트 지정
+    errorElement: <ErrorPage />, 
     children: [
       { path: "/", element: <Navigate to="/home" /> },
       // 루트페이지를 들어갔을때 자동으로 들어가지도록 함 리다이렉트
