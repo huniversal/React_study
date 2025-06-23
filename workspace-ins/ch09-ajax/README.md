@@ -273,7 +273,7 @@ HTTP(HyperText Transfer Protocol)는 웹 브라우저와 웹 서버 간 텍스�
   - Auth Type: Bearer Token
   - Token: `{{accessToken}}`
   - Ctrl + S 눌러서 저장
-
+  
 #### 회원 정보 수정 요청시 인증은 부모(컬렉션)에서 지정한 인증 방식으로 변경
 * Collections > Open Market API > 회원 정보 수정 > Authorization
   - Auth Type: Inherit auth from parent
@@ -604,21 +604,24 @@ axios.interceptors.response.use((response) => {
   - 개발자 도구 사용 방법 참고: https://tanstack.com/query/latest/docs/framework/react/devtools
 
 ### 3.5.2 사용 설정
-* App.jsx에 추가
+* main.tsx에 추가
   ```tsx
-  ......
-  import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+  import { StrictMode } from 'react'
+  import { createRoot } from 'react-dom/client'
+  import App from './App.tsx'
+  import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
   import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
   const queryClient = new QueryClient();
 
-  function App() {
-    return (
-      <QueryClientProvider client={ queryClient }>    
-        ......
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <QueryClientProvider client={ queryClient }>
+        <App />
         <ReactQueryDevtools initialIsOpen={ false } />
       </QueryClientProvider>
-    );
-  }
+    </StrictMode>,
+  )
   ```
 
 ### 3.5.3 useQuery
