@@ -13,9 +13,6 @@ interface AxiosParams {
   url: string;
 }
 
-// 응답 데이터 타입 정의
-type ResData = TodoListRes | TodoItemRes | ErrorRes;
-
 function useAxios<T>(axiosParams: AxiosParams) {
   // Todo 목록을 저장할 상태 (초기값: null)
   const [data, setData] = useState<T | null>(null);

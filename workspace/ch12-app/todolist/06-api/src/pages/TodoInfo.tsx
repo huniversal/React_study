@@ -1,6 +1,6 @@
 import useAxiosInstance from '@hooks/useAxiosInstance';
 import { Link, Outlet, useParams, useMatch, useLocation } from "react-router";
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
   // useParams()는 브라우저에 명시한 URL 파라미터의 값을 가져오는 커스텀 훅
 export interface TodoItem {
   _id: number;
@@ -11,14 +11,6 @@ export interface TodoItem {
   updatedAt: string;
 }
 
-const item = {
-  _id: 2,
-  title: '자바스크립트 복습',
-  content: '리액트도 당연히 복습.',
-  done: false,
-  createdAt: '2025.06.17 16:49:00',
-  updatedAt: '2025.06.17 16:49:00',
-};
 
 function TodoInfo() {
   const axiosInstance = useAxiosInstance();
@@ -46,7 +38,6 @@ function TodoInfo() {
 
   useEffect(() => {
     fetchTodoInfo();
-
   }, [_id, location.state])
 
   return (

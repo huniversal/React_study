@@ -1,7 +1,8 @@
-import useFetch from '@hooks/useAxios';
+import useAxios from '@hooks/useAxios';
 import type { TodoListRes } from "#types/todo";
+
 const TodoList = () => {
-  const { isLoading, error, data } = useFetch<TodoListRes>({ url: '/todolist?delay=1000'});
+  const { isLoading, error, data } = useAxios<TodoListRes>({ url: '/todolist?delay=1000'});
 
   console.log("APP 렌더링", isLoading, error, data)
 

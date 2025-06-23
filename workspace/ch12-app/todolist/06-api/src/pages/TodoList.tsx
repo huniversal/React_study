@@ -8,36 +8,30 @@ interface TodoList {
   items: TodoItem[];
 }
 
-// const dummyData: TodoList = {
-//   items: [{
-//     _id: 1,
-//     title: '잠자기',
-//     done: true,
-//     createdAt: '2025.06.16 16:49:00',
-//     updatedAt: '2025.06.16 16:49:00',
-//   }, {
-//     _id: 2,
-//     title: '자바스크립트 복습',
-//     done: false,
-//     createdAt: '2025.06.17 16:49:00',
-//     updatedAt: '2025.06.17 16:49:00',
-//   }]
-// };
-
 function TodoList() {
 
   const axios = useAxiosInstance();
   const [data, setData] = useState<TodoList | null>(null);
 
   // 할일 목록을 API 서버에서 조회
+  // =============================================
+  // 목록 조회
+  // =============================================
   const fetchTodoList = async () => {
     console.log('API 서버에 목록 요청해야 한다.');
     // TODO API 서버에 목록 요청
-    const res = await axios.get<TodoList>('/todolist');
-
-    setData(res.data);
+    try {
+      const res = await axios.get<TodoList>('/todolist');
+      setData(res.data);
+    } catch (err) {
+      console.error("목록 조회 실패", err);
+      alert(" 목록 조회에 실패했습니다.");
+    }
   };
+
+  // =============================================
   // 삭제 처리
+  // =============================================
   const handleDelete = async (_id: number) => {
     // 1. 먼저 사용자에게 확인받기
     if (!confirm("정말 삭제하시겠습니까?")) {
@@ -55,12 +49,13 @@ function TodoList() {
       setData({ items: newItems || [] });
       
       alert('삭제 완료');
-    } catch (error) {
-      console.error('삭제 실패:', error);
+    } catch (err) {
+      console.error('삭제 실패:', err);
       alert('삭제에 실패했습니다.');
     }
   };
 
+  // 컴포넌트가 마운트를 할 때 목록 조회
   useEffect(()=>{
     fetchTodoList();
   }, []); // 빈 배열을 전달해서 마운트시에만 실행

@@ -2,6 +2,7 @@ import type { TodoItem } from "./TodoInfo";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 
+// TODO 과제 : 리셋이 안되는 문제 해결하기
 function TodoAdd() {
   const {
     register,

@@ -1,8 +1,8 @@
 import useAxiosInstance from '@hooks/useAxiosInstance';
 import type { TodoItem } from "@pages/TodoInfo";
-import { Link, useNavigate, useOutletContext, useLocation } from "react-router";
+// import { Link, useNavigate, useOutletContext, useLocation } from "react-router";
+import { Link, useNavigate, useOutletContext } from "react-router";
 import { useForm } from "react-hook-form";
-import { useEffect } from 'react';
 
 interface OutletContextProps {
   item: TodoItem;
@@ -15,8 +15,7 @@ function TodoEdit() {
   const { item } = useOutletContext<OutletContextProps>();
   const axiosInstance = useAxiosInstance();
 
-  const location = useLocation();
-  const updated = location.state?.updates;
+  // const location = useLocation();
   // useLocation().state?.updates는 현재 페이지의 상태에서 updates를 리턴한다
 
   // TODO React form 다시 보기!!
@@ -28,13 +27,6 @@ function TodoEdit() {
       done: item.done
     }
   });
-
-  // useEffect(() => {
-  //   if (location.state?.updates) {
-  //     // 데이터 재로드 로직
-  //     fetchTodoItem(); // 또는 해당하는 데이터 로드 함수
-  //   }
-  // }, [location.state?.updates]);
 
   const updateTodo = async (formData: TodoItem) => {
     console.log("API 서버에 수정 요청", formData);
@@ -49,7 +41,7 @@ function TodoEdit() {
         }
       });
     } catch (err){
-      console.error("할일 수정에 실패했습니다.");
+      console.error(err);
       alert("할일 수정에 실패했습니다.");
       return;
     }
