@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { BoardInfoType } from "@/types/BoardTypes";
 
 function BoardInfo() {
-
+  // 서버의 데이터를 저장할 상태
   const [data, setData] = useState<BoardInfoType | null>(null);
   // 로딩 상태
   const [isLoading, setIsLoading] = useState(false);
@@ -11,10 +11,12 @@ function BoardInfo() {
   // 에러 상태 
   const [error, setError] = useState<Error | null>(null);
 
-    // API 서버에 1번 게시물의 상세 정보를 fetch() 요청으로 보낸다. 
+  // API 서버에 1번 게시물의 상세 정보를 fetch() 요청으로 보낸다. 
   const requestInfo = async () => {
     try {
       setIsLoading(true); // 로딩 시작
+
+      // fetch()는 바디가 없는 GET 요청을 보낸다.
       const response = await fetch( "https://fesp-api.koyeb.app/market/posts/1?delay=1000", {
         headers: {
           'Client-ID': 'openmarket'
@@ -52,7 +54,7 @@ function BoardInfo() {
         <>        
           <h2>{data.title}</h2>
           <p>{data.content}</p>
-          <CommentList replies={data.replies} />
+          <CommentList />
         </>
       }
     </>
