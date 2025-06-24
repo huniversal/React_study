@@ -3,8 +3,8 @@ import CommentNew from "@/pages/board/CommentNew";
 import type { ReplyListResType, ReplyType } from "@/types/BoardTypes";
 import { useEffect, useState } from "react";
 
-function CommentList() {
 
+function CommentList() {
   // 서버의 데이터를 저장할 상태
   const [data, setData] = useState<ReplyType[] | null>(null);
   // 로딩 상태
@@ -22,7 +22,6 @@ function CommentList() {
   //      - window에 focus 이벤트로 브라우저 탭의 포커스 변경을 감지해서 requestCommentList() 호출)
   // TODO 일정 시간동안은 캐시해서 서버 호출 횟수 줄이기(캐시 관련 로직 작성) ✅ 
   // TODO 주기적으로 호출해서 데이터를 자동으로 갱신하기(setInterval() 함수로 일정 시간마다 requestCommentList() 호출 ) ✅
-
 
   // API 서버에 1번 게시물의 댓글 목록을 fetch() 요청으로 보낸다.
   const requestCommentList = async (retryCount = 3) => {
@@ -67,12 +66,12 @@ function CommentList() {
   useEffect(() => {
     const interval = setInterval(() => {
       const now = Date.now();
-      if(lastfetch && now - lastfetch >= 10_000) {
+      if(lastfetch && now - lastfetch >= 60_000) {
         requestCommentList();
       } else {
         console.log("캐시 유효");
       }
-    }, 5000);
+    }, 20_000);
 
     return () => clearInterval(interval);
   }, [lastfetch])
@@ -111,7 +110,7 @@ function CommentList() {
         <ul>
           { replyList }
         </ul>
-        <CommentNew />
+        <CommentNew onAddComment={requestCommentList}/>
       </>;
   }
 

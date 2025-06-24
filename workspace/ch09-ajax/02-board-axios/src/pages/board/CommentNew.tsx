@@ -1,7 +1,11 @@
 import useAxiosInstance from '@/hooks/useAxiosInstance';
 import { useState } from 'react';
 
-function CommentNew() {
+interface CommentNewProps {
+  onAddComment: () => void;
+}
+
+function CommentNew({onAddComment} : CommentNewProps) {
   // 댓글 내용 저장
   const [content, setContent] = useState('');
 
@@ -10,7 +14,8 @@ function CommentNew() {
   // API 서버에 댓글 등록 요청
   const requestAddComment = async (formData: FormData) => {
     try {
-      const response = await axios.post('/post/1/replies', formData);
+      const response = await axios.post('/posts/1/replies', formData);
+      onAddComment();
 
       // TODO : 댓글 등록 후 목록 갱신(requsetCommentList() 호출)
     } catch(err) {
@@ -24,7 +29,7 @@ function CommentNew() {
 
     const formData = new FormData(e.currentTarget);
     console.log('content', content);
-    formData.append('content', content);
+    // formData.append('content', content);
     requestAddComment(formData);
   })
   return (
