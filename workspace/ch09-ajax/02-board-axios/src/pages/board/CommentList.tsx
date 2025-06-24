@@ -14,7 +14,7 @@ function CommentList() {
   // axios instance
   const axios = useAxiosInstance();
 
-  // TODO 작업이 실패하면 자동으로 재시도하기 (catch 블럭에서 지정한 횟수만큼 requestCommentList() 호출)
+  // TODO 작업이 실패하면 자동으로 재시도하기 (catch 블럭에서 지정한 횟수만큼 requestCommentList() 호출) ✅
   // TODO 다른 탭이나 앱에서 작업 후에 돌아오면 데이터 자동으로 갱신하기
   //      - (document에 visibilitychange 이벤트로 브라우저의 가시성 변경을 감지, 
   //      - window에 focus 이벤트로 브라우저 탭의 포커스 변경을 감지해서 requestCommentList() 호출)
@@ -28,7 +28,7 @@ function CommentList() {
       // 로딩 상태를 true로 지정
       setIsLoading(true);
 
-      const response = await axios.get<ReplyListResType>('/posts/12222/replies', {
+      const response = await axios.get<ReplyListResType>('/posts/1/replies', {
         params: {
           delay: 1000,
           // page: 3,
@@ -56,6 +56,27 @@ function CommentList() {
   useEffect(() => {
     requestCommentList();
   }, []); // 마운트 후에 한번만 실행
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        console.log('가시성 변경: 탭에 복귀');
+        requestCommentList();
+      }
+    };
+
+    const handleFocus = () => {
+      console.log('가시성 변경: 창에 복귀');
+      requestCommentList();
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.addEventListener('focus', handleFocus);
+    };
+  }, []);
 
   const replyList = data?.map(reply => <li key={ reply._id }>{ reply.content }</li>);
 
