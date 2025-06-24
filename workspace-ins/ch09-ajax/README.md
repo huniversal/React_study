@@ -837,7 +837,7 @@ export default FetchOnRender;
 
 ### 4.2.1 흐름
 1. 컴포넌트가 처음 렌더링될 때 데이터가 보여질 영역을 비운채로 렌더링
-2. useEffect 훅에서 데이터 패칭 요청(자식 컴포넌트에서 필요한 데이터도 동시에 패칭)
+2. 모듈 탑 레벨에서 데이터 패칭 요청(자식 컴포넌트에서 필요한 데이터도 동시에 패칭)
 3. 데이터가 도착하면 상태를 업데이트해서 응답 받은 데이터를 가지고 리렌더링
 4. 자식 컴포넌트가 있다면 Props로 데이터 전달. 자식 컴포넌트는 데이터 패칭 없이 바로 렌더링
 
@@ -925,7 +925,7 @@ function fetchComments() {
   });
 }
 
-// 댓글 목록 조회 API 호출
+// props로 전달받은 댓글 목록 출력
 export function Comments({ comments }: { comments: CommentsRes }) {
   if(!comments){
     return <div>댓글 로딩중...</div>;
