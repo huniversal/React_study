@@ -52,6 +52,7 @@ function CommentList() {
       </li>
     );
   })
+
   return (
     <>
       <h3>댓글 목록</h3>
