@@ -1,5 +1,6 @@
+import useAxiosInstance from "@/hooks/useAxiosInstance";
 import CommentNew from "@/pages/board/CommentNew";
-import type { ReplyType } from "@/types/BoardType";
+import type { ReplyListResType, ReplyType } from "@/types/BoardType";
 import { useEffect, useState } from "react";
 
 function CommentList() {
@@ -13,28 +14,26 @@ function CommentList() {
   // 에러 상태
   const [error, setError] = useState<Error | null>(null);
 
+  // axios instance
+  const axios = useAxiosInstance();
+
   // API 서버에 1번 게시물의 댓글 목록을 fetch() 요청으로 보낸다.
   const requestCommentList = async () => {
     try{
       // 로딩 상태를 true로 지정
       setIsLoading(true);
 
-      const response = await fetch('https://fesp-api.koyeb.app/market/posts/1/replies?page=1&limit=5&delay=1000', {
-        headers: {
-          'Client-Id': 'openmarket'
+      const response = await axios.get<ReplyListResType>('/posts/1/replies', {
+        params: {
+          delay: 1000,
+          page: 3,
+          limit: 10,
         }
       });
-      console.log('response', response);
-      const jsonData = await response.json();
-      console.log('jsonData', jsonData);
-      if(jsonData.ok){ // 응답이 성공일 경우
-        // 댓글 목록 출력
-        setData(jsonData.item);
-        setError(null);
-      }else{ // 응답이 실패일 경우
-        // 에러 메세지 출력
-        throw new Error(jsonData.message);
-      }
+
+      // 댓글 목록 출력
+      setData(response.data.item);
+      setError(null);
     }catch(err){
       setError(err as Error);
       setData(null);
