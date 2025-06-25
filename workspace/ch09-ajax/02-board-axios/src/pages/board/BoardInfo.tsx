@@ -22,7 +22,7 @@ function BoardInfo() {
       // 로딩 상태를 true로 지정
       setIsLoading(true);
 
-      const response = await axios.get<BoardInfoResType>('/posts/1?delay=1000');
+      const response = await axios.get<BoardInfoResType>('/posts/1');
 
       // 게시물 상세 정보 출력
       setData(response.data.item);
