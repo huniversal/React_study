@@ -1,5 +1,6 @@
 import useAxiosInstance from "@/hooks/useAxiosInstance";
 import CommentList from "@/pages/board/CommentList";
+import type { BoardInfoResType } from "@/types/BoardType";
 import { useQuery } from "@tanstack/react-query";
 
 function BoardInfo() {
@@ -9,7 +10,7 @@ function BoardInfo() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['posts', 1],
     queryFn: () => axios.get('/posts/1?delay=1000'),
-    select: (response) => response.data.item,
+    select: (response: { data: BoardInfoResType}) => response.data.item,
   });
 
   return (
