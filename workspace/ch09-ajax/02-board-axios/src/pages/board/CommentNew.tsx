@@ -19,7 +19,6 @@ function CommentNew({onAddComment} : CommentNewProps) {
 
       // TODO : 댓글 등록 후 목록 갱신(requsetCommentList() 호출)
     } catch(err) {
-      console.error(err);
     } 
   };
 
