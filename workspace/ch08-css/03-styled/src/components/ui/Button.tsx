@@ -3,6 +3,7 @@ import styled from 'styled-components';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: string;
   bg?: string;
+  variant?: 'basic' | 'cancel' | 'confirm';
 }
 
 const BasicButtonStyle = styled.button<ButtonProps>`
@@ -28,7 +29,16 @@ const ConfirmButtonStyle = styled(BasicButtonStyle)`
   color: white;
 `
 
-function Button({ children, ...rest }: ButtonProps) {
+function Button({ children, variant='basic', ...rest }: ButtonProps) {
+  switch(variant) {
+    case 'cancel':
+      return <CancelButtonStyle {...rest}>{children}</CancelButtonStyle>;
+    case 'confirm':
+      return <ConfirmButtonStyle {...rest}>{children}</ConfirmButtonStyle>;
+    case 'basic':
+      return <BasicButtonStyle {...rest}>{children}</BasicButtonStyle>;
+    default:
+  }
   return <BasicButtonStyle {...rest}>{children}</BasicButtonStyle>;
 }
 
