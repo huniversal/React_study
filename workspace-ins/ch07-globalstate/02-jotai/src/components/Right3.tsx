@@ -26,7 +26,7 @@ function Right3() {
     <div>
       <h3>Right3</h3>
       <button onClick={ () => countDown(1) }>-1</button>
-      <button onClick={ () => countUp(10) }>+1</button>
+      <button onClick={ () => countUp(1) }>+1</button>
     </div>
   );
 }

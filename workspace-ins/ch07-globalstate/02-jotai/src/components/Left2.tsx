@@ -1,5 +1,5 @@
 import Left3 from '@/components/Left3';
-import { countAtom } from '@/jotai/atoms';
+import { dualDoubleCountAtom as countAtom } from '@/jotai/derived';
 import { useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 
