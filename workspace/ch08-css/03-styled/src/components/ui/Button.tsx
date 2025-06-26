@@ -1,14 +1,14 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: string;
   bg?: string;
 }
 
-const BasicButtonStyle = styled.button`
-  background-color: gray;
+const BasicButtonStyle = styled.button<ButtonProps>`
+  background-color: ${(props) => props.bg || 'gray'};
   border: none;
-  color: black;
+  color: ${(props) => props.color || 'black' };
   padding: 6px 18px;
   text-align: center;
   text-decoration: none;
@@ -19,10 +19,17 @@ const BasicButtonStyle = styled.button`
   border-radius: 6px;
 `;
 
-function Button({ children, bg, color, ...rest }: ButtonProps){
-  return (
-    <BasicButtonStyle {...rest}>{ children }</BasicButtonStyle>
-  );
+const CancelButtonStyle = styled(BasicButtonStyle)`
+  background-color: red;
+  color: white;
+`
+const ConfirmButtonStyle = styled(BasicButtonStyle)`
+  background-color: blue;
+  color: white;
+`
+
+function Button({ children, ...rest }: ButtonProps) {
+  return <BasicButtonStyle {...rest}>{children}</BasicButtonStyle>;
 }
 
 export default Button;
