@@ -23,7 +23,8 @@ const useCounterStore = create<CounterState>((set, get) => ({
     set({ count: get().count - step });
   },
 
-  countUp: (step) => set({ count: get().count + step }),
+  // countUp: (step) => set({ count: get().count + step }),
+  countUp: (step) => set((state) => ({ count: state.count + step })),
 
   // 현재 count 값 반환
   getCount: () => get().count,
