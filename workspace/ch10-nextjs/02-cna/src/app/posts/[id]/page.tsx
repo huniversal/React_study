@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({params} : {params: { id: string }}): Promise<Metadata> {
+  const { id } = await params;
   const data = {
-    title: `1번 게시물`,
+    title: `${id}번 게시물`,
     content: '게시판 이용 수칙입니다.'
   };
 
