@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 
-export async function generateMetadata({params} : {params: { id: string }}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const { id } = await params;
+
   const data = {
-    title: `${id}번 게시물`,
+    title: `${ id }번 게시물`,
     content: '게시판 이용 수칙입니다.'
   };
 
@@ -13,11 +14,10 @@ export async function generateMetadata({params} : {params: { id: string }}): Pro
   };
 }
 
-export default async function InfoPage({params} : {params: { id: string }}) {
+export default async function InfoPage({ params }: { params: { id: string } }) {
   const pageParams = await params;
   console.log('pageParams', pageParams);
-  // const { id } = await params;
   return (
-    <h1>상세 조회 - {pageParams.id}번 게시물</h1>
+    <h1>상세 조회 - { pageParams.id }번 게시물</h1>
   );
 }
