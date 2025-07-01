@@ -22,10 +22,10 @@ export default function RootLayout({
           <nav>
             <ul className="flex space-x-4">
               <li><Link href="/" className={`hover:underline ${isActive('/')}`}>Home</Link></li>
-              <li><a href="/about" className={`hover:underline ${isActive('/about')}`}>About</a></li>
-              <li><a href="/posts" className={`hover:underline ${isActive('/posts')}`}>게시판</a></li>
-              <li><a href="/user/login" className={`hover:underline ${isActive('/user/login')}`}>로그인</a></li>
-              <li><a href="/user/signup" className={`hover:underline ${isActive('/user/signup')}`}>회원가입</a></li>
+              <li><Link href="/about" className={`hover:underline ${isActive('/about')}`}>About</Link></li>
+              <li><Link href="/posts" className={`hover:underline ${isActive('/posts')}`}>게시판</Link></li>
+              <li><Link href="/login" className={`hover:underline ${isActive('/login')}`}>로그인</Link></li>
+              <li><Link href="/signup" className={`hover:underline ${isActive('/signup')}`}>회원가입</Link></li>
             </ul>
           </nav>
         </header>
