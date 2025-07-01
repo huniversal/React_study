@@ -14,8 +14,10 @@ export async function generateMetadata({params} : {params: { id: string }}): Pro
 }
 
 export default async function InfoPage({params} : {params: { id: string }}) {
-  const { id } = await params;
+  const pageParams = await params;
+  console.log('pageParams', pageParams);
+  // const { id } = await params;
   return (
-    <h1>상세 조회 - {id}번 게시물</h1>
+    <h1>상세 조회 - {pageParams.id}번 게시물</h1>
   );
 }
