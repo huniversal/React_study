@@ -1,29 +1,61 @@
-import { Metadata } from "next";
-import Link from 'next/link';
+// import { Metadata } from "next";
+// import Link from 'next/link';
+
+// export const metadata: Metadata = {
+//   title: '게시물 목록 조회',
+//   description: '게시물 목록 조회 페이지입니다.'
+// }
+
+// export default function ListPage() {
+//   const dummyList = [];
+//   for(let i = 1; i <= 1000; i++) {
+//     dummyList.push({
+//       id: i, 
+//       title: i + "번 게시글", 
+//     })
+//   }
+
+//   const posts = dummyList.map(post => <li 
+//       key={post.id}> <Link href={`/posts/${post.id}`}> {post.title} </Link>
+//       </li>)
+//   return (
+//     <>
+//       <h1>목록 조회</h1>
+//       <ul>
+//         { posts }
+//       </ul>  
+//     </>
+//   );
+// }
+
+ import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: '게시물 목록 조회',
-  description: '게시물 목록 조회 페이지입니다.'
-}
-
+  title: "게시물 목록 조회",
+  description: "게시물 목록 조회 페이지입니다.",
+};
 export default function ListPage() {
   const dummyList = [];
-  for(let i = 1; i <= 1000; i++) {
+  for (let i = 0; i < 1000; i++) {
     dummyList.push({
-      id: i, 
-      title: i + "번 게시글", 
-    })
+      id: i,
+      title: i + "번 게시물",
+    });
   }
 
-  const posts = dummyList.map(post => <li 
-      key={post.id}> <Link href={`/posts/${post.id}`}> {post.title} </Link>
-      </li>)
+  const posts = dummyList.map((post) => (
+    <li key={post.id}>
+      <Link prefetch={true} href={`/posts/${post.id}`}>
+        {post.title}
+      </Link>
+    </li>
+  ));
+
   return (
     <>
       <h1>목록 조회</h1>
-      <ul>
-        { posts }
-      </ul>  
+      <ul>{posts}</ul>
     </>
   );
 }
