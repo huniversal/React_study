@@ -12,8 +12,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function InfoPage() {
+export default async function InfoPage({params} : {params: { id: string }}) {
+  const { id } = await params;
   return (
-    <h1>상세 조회 - 1번 게시물</h1>
+    <h1>상세 조회 - {id}번 게시물</h1>
   );
 }
