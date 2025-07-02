@@ -1,21 +1,53 @@
-import { NextRequest, NextResponse } from 'next/server';
+// import { NextRequest, NextResponse } from 'next/server';
 
-// 지원 메소드 선언
-export async function GET(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
+// // 지원 메소드 선언
+// export async function GET(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
+//   const { id } = await params;
+//   console.log("GET 라우트 핸들러", id);
+//   // DB 연동해서 상세 정보 조회 작업을 직접 구현 (풀스택)
+//   const res = await fetch(`https://fesp-api.koyeb.app/market/posts/${id}`, {
+//     headers: {
+//       'Client-Id': 'openmarket',  // API 서버의 키값이다. 
+//     }
+//   });
+
+//   const data = await res.json();
+//   // const data = {id, title: "가짜 제목"}
+//   return NextResponse.json(data);
+// }
+
+// export function POST() {
+//   return NextResponse.json("route handler의 POST 응답");
+  
+// }
+
+// export function DELETE() {
+  // return NextResponse.json('route handler의 DELETE 응답');
+// }
+import { NextRequest, NextResponse } from "next/server";
+
+// 게시물 상세 조회
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }){
   const { id } = await params;
-  console.log("GET 라우트 핸들러", id);
-  // 실제 작업
+  console.log('GET 라우트 핸들러', id);
+  // DB 연동해서 상세 정보 조회 작업을 직접 구현(풀스택)
+  
+  // 준비된 API 서버 호출
+  const res = await fetch(`https://fesp-api.koyeb.app/market/posts/${id}`, {
+    headers: {
+      'Client-Id': 'openmarket'
+    }
+  });
 
-
-  const data = {id, title: "가짜 제목"}
+  const data = await res.json();
+  // const data = { id, title: '가짜 제목' };
   return NextResponse.json(data);
 }
 
-export function POST() {
-  return NextResponse.json("route handler의 POST 응답");
-  
+export function POST(){
+  return NextResponse.json('route handler의 POST 응답');
 }
 
-export function DELETE() {
-  
+export function DELETE(){
+  return NextResponse.json('route handler의 DELETE 응답');
 }
