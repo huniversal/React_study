@@ -12,12 +12,19 @@ function Right3() {
   const countUp = useCounterStore(state => state.countUp);
   const countDown = useCounterStore(state => state.countDown);
   const countReset = useCounterStore(state => state.countReset);
+
+  // 아래 코드는 리렌더링 문제 발생
+  // const count = useCounterStore((state) => state.count)
+
+  const getCount = useCounterStore((state) => state.count);
   return (
     <div>
       <h3>Right3</h3>
       <button onClick={ () => countUp(10) }>+10</button>
       <button onClick={ () => countReset() }>0</button>
       <button onClick={ () => countDown(10) }>-10</button>
+      <button onClick={ () => console.log(getCount)}>count 값 확인</button>
+
     </div>
   );
 }

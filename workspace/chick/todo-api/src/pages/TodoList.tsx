@@ -11,7 +11,6 @@ function TodoList({ itemList, deleteItem, toggleDone }: TodoListPropType) {
 
   const axiosInstance = useAxiosInstance();
 
-
   /*
   *  Promise
   * 1. pending 상태 : 진행중
@@ -23,7 +22,7 @@ function TodoList({ itemList, deleteItem, toggleDone }: TodoListPropType) {
     try {
       const res = await axiosInstance.get('/todolist');
       // fulfilled 상태
-      console.log('서버의 응답', res);
+      console.log('서버의 응답', res.data.items);
     } catch(err) {
       // rejected 상태
       console.error(err);
