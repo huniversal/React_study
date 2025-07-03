@@ -8,6 +8,8 @@
 
 "use server";
 import { PostInfoRes } from '@/types/board';
+// import { revalidatePath, revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 // 서버 액션
 // 일반적인 방법 : 폼 제출 -> JS -> API 호출 -> 서버
@@ -39,5 +41,10 @@ export async function createPost(prevState: PostInfoRes, formData: FormData) {
     }
   });
   const data = await res.json();
+  if(data.ok) {
+    // revalidatePath('/posts');
+    // revalidateTag('list');
+    redirect('/posts');
+  }
   return data;
 } 

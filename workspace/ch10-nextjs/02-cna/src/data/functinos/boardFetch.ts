@@ -21,7 +21,12 @@ export async function fetchPosts (): Promise<Post[]> {
   const res = await fetch(`https://fesp-api.koyeb.app/market/posts?type=qna`, {
     headers: {
       'Client-Id': 'openmarket'
-    }
+    },
+    next: {
+      tags: ['list', 'free']
+    },
+    // cache: 'no-cache'  // next 15 기본값
+    cache: 'force-cache'  // next 14 기본값
   });
 
   /*
