@@ -9,7 +9,7 @@ export default function RootError({error}: {error: Error}) {
     <>
       {/* <div>일시적인 에러가 발생했습니다.</div>
       <Link href="/">홈으로</Link> */}
-            <NotFound />
+        <NotFound />
     </>
   )
 }
