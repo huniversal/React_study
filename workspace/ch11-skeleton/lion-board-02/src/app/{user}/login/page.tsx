@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '로그인 - 멋사컴',
     description: '로그인 페이지',
-    url: '/user/login'
+    url: '/login'
   }
 }
 
