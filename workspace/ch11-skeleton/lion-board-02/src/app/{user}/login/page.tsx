@@ -1,4 +1,13 @@
 import Link from "next/link";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: '로그인 - 멋사컴',
+  openGraph: {
+    title: '로그인 - 멋사컴',
+    description: '로그인 페이지',
+    url: '/user/login'
+  }
+}
 
 export default async function LoginPage() {
   return (
