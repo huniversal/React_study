@@ -1,6 +1,12 @@
 import './globals.css';
+import { Metadata } from 'next';
 import Footer from '@/components/common/Footer';
 import Header from '@/components/common/Header';
+
+export const metadata: Metadata = {
+  // url 관련 metadata 설정시 사용될 기본 경로 지정
+  metadataBase: new URL('https://lion-board.vercel.app'),
+};
 
 export default function RootLayout({
   children,

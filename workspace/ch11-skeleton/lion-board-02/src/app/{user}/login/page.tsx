@@ -35,7 +35,7 @@ export default async function LoginPage() {
           </div>
           <div className="mt-10 flex justify-center items-center">
             <button type="submit" className="bg-orange-500 py-1 px-4 text-base text-white font-semibold ml-2 hover:bg-amber-400 rounded">로그인</button>
-            <Link href="/user/signup" className="ml-8 text-gray-800 hover:underline">회원가입</Link>
+            <Link href="/signup" className="ml-8 text-gray-800 hover:underline">회원가입</Link>
           </div>
         </form>
       </div>
