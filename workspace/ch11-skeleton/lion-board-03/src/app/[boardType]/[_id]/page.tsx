@@ -1,6 +1,7 @@
 import CommentList from "@/app/[boardType]/[_id]/CommentList"
 import Link from "next/link";
 import { Metadata } from "next";
+import { getPost } from "@/data/functions/post";
 
 export async function generateMetadata({ params }: InfoPageProps): Promise<Metadata>{
   const { boardType, _id } = await params;
@@ -26,18 +27,22 @@ interface InfoPageProps {
 
 export default async function InfoPage({params} : InfoPageProps) {
   const {boardType, _id} = await params;
+  const post = await getPost(Number(_id));
+  if(!post.ok) {
+    return <div>{post.message}</div>
+  }
   return (
     <main className="flex-1 container mx-auto mt-4 px-4">
       <section className="mb-8 p-4">
         <form action={`/${boardType}`}>
-        <div className="font-semibold text-xl">제목 : React란?</div>
+        <div className="font-semibold text-xl">제목 : { post.item?.title }?</div>
           <div className="text-right text-gray-400">
-            <div>작성자 : 액션핑</div>
-            <div>2025.06.30 14:00:00</div>
+            <div>작성자 : { post.item?.user.name }</div>
+            <div> { post.item?.createdAt } </div>
           </div>
           <div className="mb-4">
             <div>
-              <p className="w-full p-2 whitespace-pre-wrap">React는 UI를 구성하기 위한 JavaScript 라이브러리로, 컴포넌트 기반 구조를 사용해 재사용성과 유지보수성이 뛰어납니다.<br />상태 관리와 가상 DOM을 통해 사용자와 빠르게 상호작용하는 동적 웹 앱을 만들 수 있습니다.</p>
+              <p className="w-full p-2 whitespace-pre-wrap">{ post.item?.content }</p>
             </div>
             <hr/>
           </div>
@@ -48,7 +53,7 @@ export default async function InfoPage({params} : InfoPageProps) {
           </div>
         </form>
       </section>
-    <CommentList />
+    <CommentList _id={_id} />
     </main>
   );
 }
