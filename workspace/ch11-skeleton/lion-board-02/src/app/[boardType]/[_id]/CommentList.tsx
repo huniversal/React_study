@@ -1,5 +1,5 @@
-import CommentItem from "@/app/info/1/CommentItem";
-import CommentNew from "@/app/info/1/CommentNew";
+import CommentNew from "@/app/[boardType]/[_id]/CommentNew"
+import CommentItem from "@/app/[boardType]/[_id]/CommentItem";
 import Image from "next/image";
 import Link from "next/link";
 

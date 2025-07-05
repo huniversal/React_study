@@ -1,4 +1,4 @@
-import CommentList from '@/app/info/1/CommentList';
+import CommentList from "@/app/[boardType]/[_id]/CommentList"
 import Link from "next/link";
 // import Image from "next/image";
 // import CommentItem from "@/app/info/1/CommentItem";
