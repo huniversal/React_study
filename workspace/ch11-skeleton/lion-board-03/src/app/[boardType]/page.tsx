@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import ListItem from "@/app/[boardType]/ListItem";
+import { getPosts } from "@/data/functions/post";
+import { Post } from "@/types";
 
 export interface ListPageProps {
   params: Promise<{
@@ -38,6 +40,7 @@ export default async function ListPage({params} : ListPageProps) {
       boardTitle = '질문 게시판';
       break;
   }
+  const res = await getPosts(boardType);
   return (
     <main className="flex-1 min-w-80 p-10">
       <div className="text-center py-4">
@@ -75,8 +78,12 @@ export default async function ListPage({params} : ListPageProps) {
             </tr>
           </thead>
           <tbody>
-            <ListItem boardType={ boardType } />
-            <ListItem boardType={ boardType } />
+            { res.ok ? 
+              res.item.map((post: Post) => (
+                <ListItem key={post._id} boardType={boardType} post={post} />
+              )) : 
+              <p>{ res.message }</p>
+            }
           </tbody>
         </table>
         <hr />
