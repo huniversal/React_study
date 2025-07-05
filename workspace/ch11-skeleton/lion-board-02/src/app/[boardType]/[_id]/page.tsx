@@ -1,9 +1,22 @@
 import CommentList from "@/app/[boardType]/[_id]/CommentList"
 import Link from "next/link";
-// import Image from "next/image";
-// import CommentItem from "@/app/info/1/CommentItem";
-// import CommentNew from "@/app/info/1/CommentNew";
+import { Metadata } from "next";
 
+export async function generateMetadata({ params }: InfoPageProps): Promise<Metadata>{
+  const { boardType, _id } = await params;
+  return {
+    title: `${boardType} - React란?`,
+    description: `${boardType} - React는 UI를 구성하기 위한 JavaScript 라이브러리로... `,
+    openGraph: {
+      title: `${boardType} - React란?`,
+      description: `${boardType} - React는 UI를 구성하기 위한 JavaScript 라이브러리로... `,
+      url: `/${boardType}/${_id}`,
+      images: {
+        url: '/images/front-end.png'
+      }
+    }
+  };
+}
 interface InfoPageProps {
   params: Promise<{
     boardType: string;
