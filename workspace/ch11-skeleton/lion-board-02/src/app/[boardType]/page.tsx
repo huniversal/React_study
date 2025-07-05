@@ -1,10 +1,27 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import ListItem from "@/app/[boardType]/ListItem";
 
 export interface ListPageProps {
   params: Promise<{
     boardType: string;
   }>;
+}
+
+export async function generateMetadata({ params }: ListPageProps): Promise<Metadata>{
+  const { boardType } = await params;
+  return {
+    title: `${boardType} - Lion Board`,
+    description: `${boardType} 게시판입니다.`,
+    openGraph: {
+      title: `${boardType} - Lion Board`,
+      description: `${boardType} 게시판입니다.`,
+      url: `/${boardType}`,
+      images: {
+        url: '/images/front-end.png'
+      }
+    }
+  };
 }
 
 export default async function ListPage({params} : ListPageProps) {
