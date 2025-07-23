@@ -1871,7 +1871,7 @@ export default function CommentNew({ _id }: { _id: string }) {
   ```
 
   - app/(user)/signup/page.tsx 파일의 `<form>...</form>` 영역 잘라서 리턴 값에 추가 후 수정
-  - ```action={"/"}``` -> `action={ formAction }`
+  - ```action="/"``` -> `action={ formAction }`
   - `<form>` 바로 밑줄에 hidden 필드 추가
     + `<input type="hidden" name="type" value="user" />`
   - `이름은 필수입니다.` -> `{ state?.ok === 0 && state.errors?.name?.msg }`
