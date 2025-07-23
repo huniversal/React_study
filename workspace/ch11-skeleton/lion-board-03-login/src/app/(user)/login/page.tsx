@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import LoginForm from '@/app/(user)/login/LoginForm';
 
 export async function generateMetadata(): Promise<Metadata>{
   return {
