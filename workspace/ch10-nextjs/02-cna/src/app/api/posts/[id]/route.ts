@@ -25,7 +25,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   *
   * 🚀 2단계 : 구조분해할당으로 간단하게 
   * function GET (request, { params }) { -> params만 바로 추출
-  * }
+  * } 
   * 
   * 🚀 3단계 : 타입 지정
   * function GET(request, { params }: { params: Promise<{ id: string }> }) {

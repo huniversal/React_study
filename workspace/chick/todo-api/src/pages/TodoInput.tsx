@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import useAxiosInstance from '../hooks/useAxiosInstance';
 
 interface TodoInputPropType {
   addItem: (title: string) => void;
@@ -11,13 +12,19 @@ function TodoInput({ addItem }: TodoInputPropType) {
   // 제어 컴포넌트 1. state 정의
   const [ title, setTitle ] = useState('');
 
-
+  const axiosInstance = useAxiosInstance();
   const inputRef = useRef<HTMLInputElement>(null);
 
   // 추가 버튼 클릭 이벤트 처리
-  const handleAdd = () => {
+  const handleAdd = async () => {
     console.log(`${title} 추가`);
-    addItem(title);
+
+    await axiosInstance.post('/todolist', {
+      title,
+      content: title
+    });
+
+
     setTitle('');
     inputRef.current?.focus();
   };

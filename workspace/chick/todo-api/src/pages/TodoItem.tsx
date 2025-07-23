@@ -1,3 +1,5 @@
+import useAxiosInstance from '../hooks/useAxiosInstance';
+
 export interface TodoItem {
   _id: number;
   title: string;
@@ -6,15 +8,22 @@ export interface TodoItem {
 
 interface TodoItemProps {
   item: TodoItem;
-  deleteItem: (_id: number) => void;
-  toggleDone: (_id: number) => void;
+  fetchList: () => void;
 }
 
-function TodoItem({ item, deleteItem, toggleDone }: TodoItemProps) {
+function TodoItem({ item, fetchList }: TodoItemProps) {
 
-  const handleDelete = (_id: number) => {
+  const axiosInstance = useAxiosInstance();
+
+  const handleDelete = async (_id: number) => {
     console.log(_id, '삭제 요청.');
-    deleteItem(_id);
+    fetchList();
+
+    try {
+      await axiosInstance.delete(`/todolist/${item._id}`);
+    } catch(err) {
+      console.error(err);
+    }
   };
 
   return (
